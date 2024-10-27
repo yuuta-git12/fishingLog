@@ -1,6 +1,3 @@
-# docker-composeのバージョンを指定
-version: "3.9"
-
 # db(Postgres),app(Django)のコンテナを作成
 services:
   db:
