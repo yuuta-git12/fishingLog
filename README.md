@@ -42,20 +42,16 @@ docker compose -f <指定するdokcer-composeのファイル> run app django-adm
 docker compose -f <指定するdokcer-composeのファイル> build
 ```
 
-### settings.pyのDATABASESを変更
-- memo_settings.mdの内容を参考に/<プロジェクト名>/settings.pyの内容を変更
-
-### 開発環境の場合
-- 起動
-  `docker compose -f docker-compose.yml up -d`
-- 停止
-  `docker stop fish_log`
-  `docker stop postgres`
-  
-
-### 運用環境の場合
-  `docker compose -f docker-compose.prod.yml up -d    `
-
+### docker イメージ作成以降の設定手順
+1. containers/django/entrypoint.shの設定
+   1. if文のelse文内に```gunicorn プロジェクト名.wsgi:application --bind 0.0.0.0:8000```を記載
+2. /<プロジェクト名>/settings.pyの内容を変更
+   1. memo_settings.mdの内容を参考に/<プロジェクト名>/settings.pyの内容を変更
+3. dockerコンテナの再ビルド
+   1. `docker compose down`でコンテナを終了
+   2. `docker compose -f docker-compose.yml build`でコンテナを再ビルド
+4. dockerコンテナの起動
+   1. `docker compose -f docker-compose.yml up -d`でコンテナを起動
 
 
 ## 参考サイト

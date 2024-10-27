@@ -11,6 +11,5 @@ if [ $DEBUG = 1 ]; then
 else
     # gunicornを起動させる時はプロジェクト名を指定します
     # 今回はdjangopjにします
-    # gunicorn djangopj.wsgi:application --bind 0.0.0.0:8000
-    gunicorn djangopj.wsgi:application --bind 0.0.0.0:8000
+    gunicorn fishing_log.wsgi:application --bind 0.0.0.0:8000
 fi
