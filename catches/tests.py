@@ -1,7 +1,8 @@
 from django.http import HttpRequest
 from django.test import TestCase
-from catches.views import top
 
+from django.urls import resolve
+from catches.views import top,catche_new,catche_edit,catche_detail
 
 class TopPageViewTest(TestCase):
     def test_top_returns_200(self):
@@ -17,3 +18,23 @@ class TopPageViewTest(TestCase):
         # response = top(request)
         response = self.client.get("/")
         self.assertEqual(response.content, b"Hello World")
+
+
+# あるURLにアクセスしたときに意図したビュー関数に紐づいているか確認
+
+class CreateCatcheTest(TestCase):
+    def test_should_resolve_catche_new(self):
+        found = resolve("/catches/new/")
+        self.assertEqual(catche_new, found.func)
+
+
+class CatcheDetailTest(TestCase):
+    def test_should_resolve_catche_detail(self):
+        found = resolve("/catches/1/")
+        self.assertEqual(catche_detail, found.func)
+
+
+class EditCatcheTest(TestCase):
+    def test_should_resolve_catche_edit(self):
+        found = resolve("/catches/1/edit/")
+        self.assertEqual(catche_edit, found.func)
